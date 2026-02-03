@@ -26,5 +26,18 @@ class TransactionController extends Controller
 
         return response()->json(['message' => 'Berhasil meminjam']);
     }
+    
+    public function returnBook($id)
+    {
+        $trx = Transaction::findOrFail($id);
 
+        $trx->update([
+            'tanggal_kembali' => now(),
+            'status' => 'dikembalikan'
+        ]);
+
+        $trx->book->increment('stok');
+
+        return response()->json(['message' => 'Buku dikembalikan']);
+    }
 }
