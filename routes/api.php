@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\TransactionController;
 */
 
 // LOGIN
+Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 /*
