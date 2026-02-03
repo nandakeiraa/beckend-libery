@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // REGISTER
+    // ================= REGISTER =================
     public function register(Request $request)
     {
         $request->validate([
@@ -27,11 +27,16 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'Register berhasil',
-            'user' => $user
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'role' => $user->role,
+            ]
         ], 201);
     }
 
-    // LOGIN
+    // ================= LOGIN =================
     public function login(Request $request)
     {
         $request->validate([
@@ -51,7 +56,12 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => $user
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'username' => $user->username,
+                'role' => strtolower($user->role), // 🔥 PENTING
+            ]
         ]);
     }
 }
